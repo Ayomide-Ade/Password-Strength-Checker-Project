@@ -62,11 +62,11 @@ The application uses a sophisticated scoring system that evaluates:
 
 Try these example passwords to see the strength checker in action:
 - `123` — Very Weak
-- `password` — Very Weak
-- `Password1` — Weak
+- `password12` — Weak
+- `Password13` — Medium
 - `MySecure123!` — Strong
-- `Tr0ub4dor&3` — Strong
-- `correct-horse-battery-staple-2024!` — Very Strong
+- `Tr0uvb4dor&3` — Very Strong
+- `correct-horse-battery-staple-2024!` — Strong
 
 ## 🎨 Design Features
 
