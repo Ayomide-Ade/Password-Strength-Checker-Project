@@ -1,6 +1,6 @@
 # 🔐 Password Strength Checker
 
-[**🚀 Live Demo**](PUT-YOUR-DEMO-LINK-HERE)
+[**🚀 Live Demo**](https://ayomide-ade.github.io/Password-Strength-Checker-Project/)
 
 A modern, responsive web application that evaluates password strength in real-time and provides intelligent suggestions to help users create secure passwords.
 
