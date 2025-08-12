@@ -1,9 +1,10 @@
 from flask import Flask, request, jsonify
-from flask_cors import CORS
 import re
 import json
 
-app = Flask(__name__)
+# Make sure Flask can find templates and static files
+app = Flask(__name__, 
+            static_folder='static')
 
 CORS(app) # Enable CORS for all domains
 
@@ -50,7 +51,7 @@ def evaluate_password_strength(password):
         return {
             'strength': 'Very Weak',
             'score': 0,
-            'suggestions': ['Enter a password to check it"s strength']
+            'suggestions': ['Enter a password to check its strength']
         }
 
     score = 0
@@ -63,7 +64,7 @@ def evaluate_password_strength(password):
     elif length >= 8:
         score += 1
     else:
-        suggestions.append('Use at least 8 characters(12+ recommended')
+        suggestions.append('Use at least 8 characters (12+ recommended)')
 
     has_lowercase = bool(re.search(r'[a-z]', password))
     has_uppercase = bool(re.search(r'[A-Z]', password))
@@ -134,6 +135,14 @@ def evaluate_password_strength(password):
         'suggestions': suggestions
     }
 
+# MAIN ROUTE - Serve the HTML page
+@app.route('/')
+def index():
+    """Serve the main HTML page"""
+    try:
+        return render_template('index.html')
+    except Exception as e:
+        return f"Error loading template: {str(e)}"
 
 @app.route('/check_password', methods=['POST'])
 def check_password():
@@ -165,34 +174,20 @@ def health_check():
     """Health check endpoint"""
     return jsonify({'status': 'healthy'})
 
-@app.route('/', methods=['GET'])
-def home():
-    """Home endpoint with API information"""
+@app.route('/api', methods=['GET'])
+def api_info():
+    """API information endpoint"""
     return jsonify({
         'message': 'Password Strength Checker API',
         'endpoints': {
+            'GET /': 'Main application page',
             'POST /check_password': 'Check password strength',
-            'GET /health': 'Health check'
+            'GET /health': 'Health check',
+            'GET /api': 'API information'
         }
     })
 
 if __name__ == '__main__':
+    print("Starting Flask app..."
+    print(f"Static folder: {app.static_folder}")
     app.run(debug=True, host='0.0.0.0', port=5000)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

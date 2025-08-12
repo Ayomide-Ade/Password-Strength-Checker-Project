@@ -1,22 +1,3 @@
-# Procfile (for Heroku deployment)
-web: gunicorn app:app
-
----
-
-# render.yaml (for Render deployment)
-services:
-  - type: web
-    name: password-strength-api
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: gunicorn app:app
-    envVars:
-      - key: PYTHON_VERSION
-        value: 3.11.0
-
----
-
-# .gitignore
 __pycache__/
 *.py[cod]
 *$py.class
