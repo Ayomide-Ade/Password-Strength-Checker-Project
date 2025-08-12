@@ -2,11 +2,10 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import re
 import json
+import os
 
-# Make sure Flask can find templates and static files
-app = Flask(__name__, 
-            template_folder='templates',
-            static_folder='static')
+# Make sure Flask can find static files
+app = Flask(__name__, static_folder='static')
 
 CORS(app) # Enable CORS for all domains
 
@@ -137,14 +136,14 @@ def evaluate_password_strength(password):
         'suggestions': suggestions
     }
 
-# MAIN ROUTE - Serve the HTML page
+# MAIN ROUTE - Serve the HTML file from root directory
 @app.route('/')
 def index():
-    """Serve the main HTML page"""
+    """Serve the main HTML page from root directory"""
     try:
-        return render_template('index.html')
+        return send_from_directory('.', 'index.html')
     except Exception as e:
-        return f"Error loading template: {str(e)}"
+        return f"Error loading HTML file: {str(e)}. Make sure 'index.html' exists in the same directory as app.py."
 
 @app.route('/check_password', methods=['POST'])
 def check_password():
@@ -191,5 +190,4 @@ def api_info():
 
 if __name__ == '__main__':
     print("Starting Flask app...")
-    print(f"Static folder: {app.static_folder}")
     app.run(debug=True, host='0.0.0.0', port=5000)
