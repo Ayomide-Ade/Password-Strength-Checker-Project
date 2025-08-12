@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import re
 import json
 
 # Make sure Flask can find templates and static files
 app = Flask(__name__, 
+            template_folder='templates',
             static_folder='static')
 
 CORS(app) # Enable CORS for all domains
@@ -188,6 +190,6 @@ def api_info():
     })
 
 if __name__ == '__main__':
-    print("Starting Flask app..."
+    print("Starting Flask app...")
     print(f"Static folder: {app.static_folder}")
     app.run(debug=True, host='0.0.0.0', port=5000)
